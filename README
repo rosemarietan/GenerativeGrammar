@@ -14,22 +14,13 @@ Yang Mansheng
 
 ---FILES---
 
-Not all files/folders in the repository are still being used.
-
-Files/folders in use:
-
-	Bongos
-	sounds
-	demo.html
-	demo.js
-	GrammarEngine.js
-	parser.js
-	readme.txt
-
-Files/folders not in use:
-
-	PE
-	RMandZX-tree.js
+Bongos
+sounds
+index.html/demo.html
+demo.js
+GrammarEngine.js
+parser.js
+readme.txt
 
 ---DEMO---
 
