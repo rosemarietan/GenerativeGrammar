@@ -1,1 +1,420 @@
-Generative Grammar
+<html>
+<head>
+
+<style type="text/css">
+
+body {
+	background: #ededed;
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 12px;
+	margin: 0px;
+	padding: 0px;
+}
+
+div {
+	padding: 0px;
+	margin: 0px;
+}
+
+h1 {
+	padding: 0px;
+	margin: 0px;
+}
+
+p {
+	padding: 0px;
+	margin: 0px;
+}
+
+a {
+	color: inherit;
+}
+
+button {
+	border: none;
+	margin: 3px 0px;
+}
+
+#buttons button {
+	background: #e24500;
+	padding: 5px 8px;
+	color: #ffffff;
+	font-weight: bold;
+	border-radius: 2px;
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+}
+
+#guiButtons button {
+	background: #e24500;
+	padding: 5px 8px;
+	color: #ffffff;
+	font-weight: bold;
+	border-radius: 2px;
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+}
+
+#gui button {
+	background: #333333;
+	padding: 3px 5px;
+	color: #ffffff;
+	font-weight: bold;
+	font-size: 10px;
+	border-radius: 2px;
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+}
+
+#title-bar {
+	background: #ffffff;
+	padding: 10px 20px;
+}
+
+#description {
+	font-size: 12px;
+	font-style: italic;
+	width: 400px;
+	padding: 10px 0px;
+}
+
+#content {
+	width: 450px;
+	margin: 20px auto;
+}
+
+#input {
+	width: 450px;
+	height: 300px;
+	resize: none;
+	outline: none;
+	border: #000000 solid 1px;
+	padding: 10px;
+	font-family: "Courier New", Courier, monospace;
+}
+
+.clonedInput {
+	margin: 5px 0px;
+}
+
+#toggleArea {
+	margin: 10px 0px 20px;
+}
+
+#toggle {
+	text-decoration: none;
+	background: #ffffff;
+	border: #000000 solid 1px;
+	padding: 5px 8px;
+	border-radius: 2px;
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+	color: #000000;
+	font-weight: bold;
+}
+
+#test {
+	margin: 50px;
+}
+
+#instructionsArea {
+	position: relative;
+	top: -300px;
+	left: 470px;
+	width: 300px;
+	margin-right: 0px;
+}
+
+#instructions {
+	background: #333333;
+	color: #ffffff;
+	width: 250px;
+	padding: 10px;
+	margin-bottom: -330px;
+	position: relative;
+	top: -50px;
+	left: 25px;
+	border-radius: 2px;
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+}
+
+#result {
+	width: 428px;
+	height: 150px;
+	overflow-x: auto;
+	overflow-y: auto;
+	margin: 10px auto;
+	padding: 10px;
+	background: #ffffff;
+	border: #000000 solid 1px;
+}
+
+#buttons {
+	position: relative;
+	top: -180px;
+	left: -470px;
+	text-align: right;
+}
+
+#guiButtons {
+	position: relative;
+	top: -180px;
+	left: -470px;
+	text-align: right;
+}
+
+#ex {
+	text-decoration: underline;
+}
+
+#bestViewed {
+	position: fixed;
+	bottom: 10px;
+	right: 10px;
+	text-align: right;
+	color: #aaaaaa;
+}
+	  
+</style>
+
+<script src="parser.js"></script>
+<script src="demo.js"></script>
+<script src="GrammarEngine.js"></script>
+<script src="../pe/expressionBuilder.js"></script>
+<script src="../pe/peParser.js"></script>
+<script src="../pe/soundObjectBuilder.js"></script>
+<script src="../pe/soundObjectParser.js"></script>
+<script src="../pe/pePlayer.js"></script>
+<script src="../pe/demo.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script type="text/javascript">
+
+//Global variables
+	var IS_SINGLE_INSTANCE = true; //toggles between one line of result and the whole language
+	var ManualMode = true;
+	var example1 =
+	"S-->VP NP\nVP-->NP V\nNP-->A N\nV-->eats\nV-->runs\nV-->takes\nA-->happy\nA-->ugly\nA-->bright\nN-->dog\nN-->hat\nN-->boy";
+	var example2 =
+	"S-->A B\nA-->a S\nA-->a\nB-->b S\nB-->b";
+ 
+//Function to toggle between manual and GUI	
+	function displayVal() {
+		if (ManualMode) {  
+			$("#manual").show();
+			$("#buttons").show();
+			$("#arrow").show();
+			$("#instructions").show();
+				  
+			$("#gui").hide();
+			$("#guiButtons").hide();
+			
+			$("#toggle").text("Or try rule-by-rule input!");
+		}
+		else {
+			$("#manual").hide();
+			$("#buttons").hide();
+			$("#arrow").hide();
+			$("#instructions").hide();
+				  
+			$("#gui").show();
+			$("#guiButtons").show();
+			
+			$("#toggle").text("Or try the manual mode");
+		}
+	}
+	 
+    $(function(){
+		$("#toggle").click(function() {
+			ManualMode = !ManualMode;
+			displayVal();
+		});
+		
+		$("#gui").hide(); 
+		$("#guiButtons").hide();
+		$("select").change(displayVal);
+	});
+		  
+
+	
+/***********TO DYNAMICALLY ADD INPUT BOXES**********/			
+	 $(document).ready(function() { 			
+		$('#addRow').click(function() {
+				var num = $('.clonedInput').length;				 
+				var newNum  = new Number(num + 1);   
+				var newElem = $('#GUIinput' + num).clone().attr('id', 'GUIinput' + newNum);
+				newElem.children(':first').attr('id', 'LHS' + newNum).attr('name', 'LHS' + newNum).attr('value', '');
+				newElem.children(':last').attr('id', 'RHS' + newNum).attr('name', 'RHS' + newNum).attr('value', '');
+				$('#GUIinput' + num).after(newElem);
+		});
+	 });
+	 
+	 $(function (){
+			$("#clearGUI").click(function (){
+				for (var i = 1; i<=$('.clonedInput').length; i++) {
+					var LHSrow = $('#LHS' + i);
+					var RHSrow = $('#RHS' + i);
+					LHSrow.attr('value', '');
+					RHSrow.attr('value','');
+				}						
+			});
+		});
+			
+			
+		
+			
+/****Functions to generate and play language from manual*****/
+	  $(function (){
+		  $("#generate").click(function (){
+			  generateResultsAndLink($("#input").val(), !IS_SINGLE_INSTANCE, "#result","#msg");			
+		  });
+		  
+		  $("#generateSingle").click(function (){
+			  generateResultsAndLink($("#input").val(), IS_SINGLE_INSTANCE, "#result","#msg");
+		  });
+		  
+	  });
+			
+			
+/*****Functions to generate and play language from GUI****/	
+				
+	  $(function (){
+		  $("#GUIgenerate").click(function (){				
+			  generateResultsAndLink(parseFromForm(".clonedInput", "#number"), !IS_SINGLE_INSTANCE,"#result","#msg");	
+		  });
+		  
+		  $("#GUIgenerateSingle").click(function (){					
+			  generateResultsAndLink(parseFromForm(".clonedInput", "#number"), IS_SINGLE_INSTANCE, "#result","#msg");
+		  });
+		  
+	  });
+	
+/******* Examples and buttons ******/
+ $(function(){
+	$("#buttons button").hover(
+		function(){
+			$(this).css('background','#ff6e2f');
+		},
+		function() {
+			$(this).css('background','#e24500');
+		}
+	);
+	
+	$("#guiButtons button").hover(
+		function(){
+			$(this).css('background','#ff6e2f');
+		},
+		function() {
+			$(this).css('background','#e24500');
+		}
+	);
+	
+	$("#gui button").hover(
+		function(){
+			$(this).css('background','#666666');
+		},
+		function() {
+			$(this).css('background','#333333');
+		}
+	);
+	 
+	$("#ex1").click(function() {
+		var egToDisplay = "";
+		example1.split("\n").forEach(function(line){
+			egToDisplay += line + "<br/>";
+		});
+		$("#input").val(example1);
+		generateResultsAndLink(example1, !IS_SINGLE_INSTANCE, "#result","#msg");
+	});
+	 
+	$("#ex2").click(function() {
+		var egToDisplay = "";
+		example2.split("\n").forEach(function(line){
+			egToDisplay += line + "<br/>";
+		});
+		$("#input").val(example2);
+		generateResultsAndLink(example2, !IS_SINGLE_INSTANCE, "#result","#msg");
+	 });
+ });
+
+</script>
+</head>
+
+<body>
+
+<div id="title-bar">
+    <h1>generative grammar</h1>
+    <p id="description">
+    A javascript project by Lee Zhi Xin and Rose Marie Tan, under the supervision of Associate Professor Martin Henz and Srikumar Karaikudi Subramaniam, in collaboration with Yang Zhixing and Yang Mansheng
+    </p>
+</div>
+
+<div id="content"> <!--start of id content-->
+
+<!-----------------------TOGGLE----------------------->
+<div id="toggleArea">
+<a id="toggle" href="#">Or try rule-by-rule input!</a>
+</div>
+
+<!---------------------INPUT------------------------>
+
+<!--Manual-->
+<div id="manual">
+  <textarea id="input"></textarea>
+</div>
+
+<!--GUI-->
+<div id="gui"> 
+    <button id="addRow">Add a row</button> <button id="clearGUI">Clear all</button> 
+    <form id="myForm">
+        <div id="GUIinput1" class="clonedInput">
+            <input type="text" name="LHS1" id="LHS1" />--><input type="text" name="RHS1" id="RHS1" />
+        </div>
+        <div id="GUIinput2" class="clonedInput">
+            <input type="text" name="LHS2" id="LHS2" />--><input type="text" name="RHS2" id="RHS2" />
+        </div>
+    </form>  
+    Number of results, if infinite: 
+    <input type="text" name="number" id="number" style = "width: 30pt" />
+</div>
+
+<!--------------------INSTRUCTIONS-------------------->
+
+<div id = "instructionsArea">
+<svg id="arrow" height="50" xmlns="http://www.w3.org/2000/svg">
+    <polygon  points="00,0 50,0, 50,50" fill="#333333" />
+</svg>
+
+<div id="instructions">
+    Rules should be specified with a non terminal symbol, followed by -->, followed by everything else.<br/><br/>
+    Non-terminals should start with upper case letters.<br/><br/>
+    The LHS of the first rule should be S.<br/><br/>
+    Terminal and non-terminal symbols should be separated by a space.<br/><br/>
+    If your language is infinite, specify the number of results you want on the first line.<br/><br/> 
+    Empty strings are represented by tildes (~) <br/><br/>
+    Still unsure? Try <a href="#" id="ex1">this example</a>, or <a href="#" id="ex2">this one</a>.
+</div>
+
+</div>
+
+<!---------------------RESULTS------------------------>
+
+<div id="msg"></div>
+<div id="result"></div>
+
+<!---------------------BUTTONS------------------------>
+
+<div id="buttons">
+    <button id="generate">Generate Grammar</button><br/>
+    <button id="generateSingle">Single Instance</button><br/>
+</div>
+
+<div id="guiButtons">
+    <button id="GUIgenerate">Generate Grammar</button><br/>
+    <button id="GUIgenerateSingle">Single Instance</button><br/>
+</div>
+
+</div> <!--end of id content-->
+<p id="bestViewed">Best viewed in Chrome, Firefox or Safari.<br/>Player works in Chrome only.</p>
+</body>
+</html>
