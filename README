@@ -1,0 +1,42 @@
+CS1010R: GENERATIVE GRAMMAR
+
+---AUTHORS---
+
+Lee Zhi Xin
+Rose Marie Tan Zhao Yun
+
+---THANKS---
+
+Associate Professor Martin Henz
+Srikumar Karaikudi Subramaniam
+Yang Zhixing
+Yang Mansheng
+
+---FILES---
+
+Not all files/folders in the repository are still being used.
+
+Files/folders in use:
+
+	Bongos
+	sounds
+	demo.html
+	demo.js
+	GrammarEngine.js
+	parser.js
+	readme.txt
+
+Files/folders not in use:
+
+	PE
+	RMandZX-tree.js
+
+---DEMO---
+
+The demo page for our project on Generative Grammar
+is available when connected to the fossil ui
+
+http://127.0.0.1:8080/doc/trunk/GG/demo.html
+
+------------
+last updated: 20 March 2012
