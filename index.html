@@ -177,17 +177,17 @@ button {
 }
 	  
 </style>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script src="http://nishabdam.com:8080/cs1010r/doc/trunk/pe/sample-anager.js"></script>
+<script src="http://nishabdam.com:8080/cs1010r/doc/trunk/pe/expressionBuilder.js"></script>
+<script src="http://nishabdam.com:8080/cs1010r/doc/trunk/pe/peParser.js"></script>
+<script src="http://nishabdam.com:8080/cs1010r/doc/trunk/pe/soundObjectBuilder.js"></script>
+<script src="http://nishabdam.com:8080/cs1010r/doc/trunk/pe/soundObjectParser.js"></script>
+<script src="http://nishabdam.com:8080/cs1010r/doc/trunk/pe/pePlayer.js"></script>
 
 <script src="parser.js"></script>
 <script src="demo.js"></script>
-<script src="GrammarEngine.js"></script>
-<script src="../pe/expressionBuilder.js"></script>
-<script src="../pe/peParser.js"></script>
-<script src="../pe/soundObjectBuilder.js"></script>
-<script src="../pe/soundObjectParser.js"></script>
-<script src="../pe/pePlayer.js"></script>
-<script src="../pe/demo.js"></script>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script src="grammarEngine.js"></script>
 <script type="text/javascript">
 
 //Global variables
@@ -196,7 +196,7 @@ button {
 	var example1 =
 	"S-->VP NP\nVP-->NP V\nNP-->A N\nV-->eats\nV-->runs\nV-->takes\nA-->happy\nA-->ugly\nA-->bright\nN-->dog\nN-->hat\nN-->boy";
 	var example2 =
-	"S-->A B\nA-->a S\nA-->a\nB-->b S\nB-->b";
+	"S-->Speed Drums\nSpeed-->/2\nDrums-->{ A . B . A . B , C . C }\nA-->hihat snare\nB-->hihat snare snare snare\nC-->kick kick kick . -";
  
 //Function to toggle between manual and GUI	
 	function displayVal() {
@@ -345,7 +345,7 @@ button {
 <div id="title-bar">
     <h1>generative grammar</h1>
     <p id="description">
-    A javascript project by Lee Zhi Xin and Rose Marie Tan, under the supervision of Associate Professor Martin Henz and Srikumar Karaikudi Subramaniam, in collaboration with Yang Zhixing and Yang Mansheng
+    A javascript project by Lee Zhi Xin and Rose Marie Tan, under the supervision of Associate Professor Martin Henz and Srikumar Karaikudi Subramaniam, <a href="http://nishabdam.com:8080/cs1010r/doc/trunk/pe/demo.html">in collaboration with Yang Zhixing and Yang Mansheng</a>
     </p>
 </div>
 
