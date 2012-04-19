@@ -17,7 +17,7 @@ checkIfTerminal(str): checks if a symbol keyed in is a terminal by a negative ma
 var NUMBER_PATTERN = /^\s*(\d+)\s*\n+/;
 var RULE_PATTERN = /^([A-Z]+\S*\s*)\-\-\>((\s*\S+)*)$/;
 var ARROW_PATTERN = /\-\-\>/g;
-var PUNCTUATION_PATTERN = /\x20*([{},])\x20*/g;
+var PUNCTUATION_PATTERN = /\x20*([{},\\.])\x20*/g;
 var EMPTY_STRING_PATTERN = /\~\x20*/g;
 var NON_TERMINAL_PATTERN = /^[A-Z]/;
 var UPPER_LIMIT = 100;
