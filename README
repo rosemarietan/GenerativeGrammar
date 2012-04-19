@@ -14,29 +14,20 @@ Yang Mansheng
 
 ---FILES---
 
-Not all files/folders in the repository are still being used.
-
-Files/folders in use:
-
-	Bongos
-	sounds
-	demo.html
-	demo.js
-	GrammarEngine.js
-	parser.js
-	readme.txt
-
-Files/folders not in use:
-
-	PE
-	RMandZX-tree.js
+Bongos
+sounds
+index.html/demo.html
+demo.js
+GrammarEngine.js
+parser.js
+readme.txt
 
 ---DEMO---
 
 The demo page for our project on Generative Grammar
-is available when connected to the fossil ui
+is available at
 
-http://127.0.0.1:8080/doc/trunk/GG/demo.html
+http://rosemarietan.github.com/GenerativeGrammar/
 
 ------------
-last updated: 20 March 2012
+last updated: 17 April 2012
