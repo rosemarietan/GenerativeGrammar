@@ -18,7 +18,7 @@ parsefromForm(formId, numberOfResId): Parses input from GUI
 					var $link = $('<a href="#" class="test-link"></a>');
 					$link.html(line);
 					$link.click(function() {
-						playExp(line);
+						player.play(line, controlParams, 1);
 					});
 					$(idOfResultPlace).append($link);
 					$(idOfResultPlace).append("<br />");
@@ -44,3 +44,24 @@ parsefromForm(formId, numberOfResId): Parses input from GUI
 					
 					return strInput;
 			}
+			var audioContext = new webkitAudioContext();
+			var player = new pePlayer(audioContext);
+			$(function() {
+				SampleManager.init(16, {
+					didInitialize: loadSamples
+				}, {
+					audioContext: audioContext
+				});
+			});
+			function loadSamples(sampleManager) {
+				sampleManager.loadSampleSet("acoustic-kit", "acoustic-kit", {
+				   didFinishLoadingSampleSet: function(name, result) {
+					   var samples = result;
+					   for (name in samples) {
+						   player.addAudioPrototype(name, samples[name], name == "sine");
+					   }
+				   }
+				});
+			}
+			var controlParams = {gain: 0.25, ADSRParams: {a: 0.1, d: 0.1, r: 0.2, maxAmp: 1.5, sustainAmp: 1}};
+			//player.play(exp, controlParams, 1);
