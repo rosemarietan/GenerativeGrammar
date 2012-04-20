@@ -1,0 +1,71 @@
+<html>
+<head>
+<title>Generative Grammar/Development</title>
+
+<link rel="stylesheet" type="text/css" href="style.css" />
+
+</head>
+
+<body>
+
+<div id="menu">
+<div id="menu-container">
+	<span id="title">
+		<a href="index.html">generative grammar</a>
+    </span>
+    <span id="nav-menu">
+        <a href="index.html">DEMO</a>
+        <a href="about.html">ABOUT</a>
+        <a href="development.html">DEVELOPMENT</a>
+        <a class="current-page" href="help.html">HELP</a>
+	</div>
+</div>
+</div>
+
+<div id="content">
+
+    <h2>Formal Languages</h2>
+        <p>This project deals with the field of formal languages, so prior knowledge in this area is helpful. To start new learners off, here is a brief and simplistic description of the basis of generative grammar. To generate sentences (here called strings) from a set of grammar rules, we require terminal and non-terminal symbols. For the following example, assume that lower-case letters are terminal symbols and upper-case letters are non-terminal symbols:</p>
+
+		<p>S --> a A<br/>A --> b</p>
+
+		<p>Starting with the initial rule S, we observe that it can be expanded to 'a A'. Here, A is a non-terminal symbol, so the expression can be expanded further to form 'a b'. Thus, the only string generated from this set of grammar rules is 'a b'. In cases where a single rule can take on multiple variations, many different strings can then be generated.</p>
+        
+	<h2>Rule Input</h2>
+    	<p>In this demo, grammar rules can be input in 2 ways: in full textual input, or if you do not like typing arrows, rule-by-rule entry. Input format must be as follows:</p>
+
+        <p>- Rules should be specified with a non-terminal LHS, followed by -->, followed by its RHS<br/>
+        - Non-terminals should start with upper case letters<br/>
+        - The LHS of the first rule should be S<br/>
+        - Terminal and non-terminal symbols should be separated by a space<br/>
+        - An empty string is represented by a tilde (~)</p>
+
+		<p>Here is an example:</p>
+
+        <p>S-->A B<br/>
+        A-->~<br/>
+        A--> a S<br/>
+        B-->~<br/>
+        B-->b S</p>
+
+		<p>Here, S, A and B are non-terminal symbols, so they must start with uppercase letters. A and B both have rule variations that are empty strings, so their RHS is a ~. Symbols need not be single character, and spaces are allowed next to the arrows (no difference in result), for example:</p>
+
+        <p>S --> Apple Bunny<br/>
+        Apple --> egg Bunny<br/>
+        Bunny --> candy Dog<br/>
+        Dog --> egg<br/>
+        Dog --> candy Apple</p>
+
+		<p>Currently, the system supports only context-free grammars, so only a single non-terminal symbol is allowed on the LHS. If your language is infinite, specify the number of results you want on the first line, before the grammar rules. Otherwise, a default of 100 strings are generated. Another option provided is the random generation of a single string rather than the full grammar, obtained by using the "single instance" button.</p>
+        
+	<h2>Sound Output with Polymetric Expressions</h2>
+        <p>As our program is designed to be integrated with the Polymetric Expressions program, we support a number of symbols to be used as non-terminal symbols as well, such as braces, commas and periods (full-stops). For a clearer understanding of the PE syntax, please visit their <a href="http://nishabdam.com:8080/cs1010r/doc/trunk/pe/demo.html">demo page</a>. For strings generated that are consistent with this syntax, clicking on the string's hyperlink will play the corresponding sound output.</p>
+
+</div>
+    
+	<div id="onward">
+        <a href="index.html">Try it out!</a>
+    </div>
+
+</body>
+</html>

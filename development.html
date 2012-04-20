@@ -1,0 +1,107 @@
+<html>
+<head>
+<title>Generative Grammar/Development</title>
+
+<link rel="stylesheet" type="text/css" href="style.css" />
+
+</head>
+
+<body>
+
+<div id="menu">
+<div id="menu-container">
+	<span id="title">
+		<a href="index.html">generative grammar</a>
+    </span>
+    <span id="nav-menu">
+        <a href="index.html">DEMO</a>
+        <a href="about.html">ABOUT</a>
+        <a class="current-page" href="development.html">DEVELOPMENT</a>
+        <a href="help.html">HELP</a>
+	</div>
+</div>
+</div>
+
+<div id="content">
+
+    <h2>The System</h2>
+        <p>Our program follows the Model-View-Controller (MVC) pattern, with View being the HTML page, Controller being the parser and Model being the grammar engine. This facilitates the separation of concerns and allows for modularisation.</p>
+
+	<h3>Model: Grammar Engine</h3>
+
+        <p>The underlying grammar engine was built with the following object-oriented structure:</p>
+        
+        <p>Each rule input by the user is converted into a Rule object, which may contain multiple variations of the Rule. Each Rule is identified by its name, in this context, it's left-hand side. For example:</p>
+
+        <p>S --> a A<br/>
+        S --> b B</p>
+        
+        <p>This will be converted into a Rule object with the name 'S' and the 2 variations [a A] and [b B].</p>
+        
+        <p>Each variation is made up of Terminal and/or NonTerminal objects. In the above example [a A], [a] is a Terminal object and [A] is a NonTerminal object. This means that [A] can be further expanded on, as there exists another Rule with the name 'A'.</p>
+        
+        <p>A set of Rules (the user's full input) then forms a Grammar object. A Language object is generated from this Grammar object, which can be used to produce strings. In order to generate all possible strings in the language, the Language object uses a tree data structure, and the tree is explored in a breadth-first manner to discover and output the fully expanded strings (the leaves of the tree).</p>
+        
+        <p>Thus, the Language is made up of multiple Node objects, each with a partially or fully expanded string, known as its value. The Node values, like Rule variations, are made up of Terminal and/or NonTerminal objects. If the value can be expanded further (i.e. it contains a NonTerminal object), child Nodes will be generated, and the breadth-first search continues. If a terminal Node is reached, its value will be converted to an output string.</p>
+        
+        <p>The Language object also allows for a random walk of the tree to produce a single random string. If the language loops infinitely and does not produce any output (e.g. a grammar of S --> a S), the system identifies this and the user is alerted.</p>
+
+	<h3>View</h3>
+
+		<p>Our program makes use of jQuery, an external library that is widely known for its capabilities in allowing developers to handle events on a webpage and manipulate HTML.</p>
+
+	<h3>Controller: Parser</h3>
+
+		<p>The parser makes use of Javascript's inbuilt Regular Expression objects. As such, it is easy to change the syntax of rules, symbols and other modifications, by simply changing the RegEx. This allows other programmers to reuse the program should they wish to. </p>
+
+    
+    <h2>Limitations and Choices Made</h2>
+
+	<h3>Grammar</h3>
+
+		<p>Due to time and implementation constraints, the engine can currently handle only context-free grammar. This is inadequate to deal with all the nuances required when generating music, as many musical rules are dependent on the context in which they are used.</p>
+
+	<h3>Interface</h3>
+
+		<p>Our project provides two input options for users: full textual input, or the more dummy-friendly form input. This is to allow greater flexibility of usage. For users who have their language rules prepared already, text input will allow them to copy and paste into the box without any hassle. It will also cater to users who prefer to use the keyboard. The form input, on the other hand, will be suitable for first-time users who are unsure of the format of rules, or users who just want to save on the hassle of typing in the arrows (-->) which constitute the syntax for rules.</p>
+
+		<p>There are also two output options, the whole grammar or a single instance. Generating the whole grammar enables the user to view all possibilities of their input language if finite, or to view the number of results they have indicated as a limit if infinite. This gives the user a general idea of the full generative possibilities of the language. A single instance just produces one random result. All results are hyperlinked to the corresponding Polymetric Expressions engine, and can be played directly if the symbols in the results are recognised. This is to integrate the two interlinked systems and provide a more user-friendly experience.</p>
+
+	<h3>Syntax</h3>
+
+		<p>We chose the arrow to connect the non-terminal symbol to the rest of the rule because it is the standard way of representation of grammar rules. However, this also means that it cannot be used for ordinary symbols (terminals).</p>
+
+		<p>Non-terminal symbols must start with capital letters while terminal symbols can start with any other character. This is decided arbitrarily in order to make it easy to differentiate between the two. As opposed to, for example, having a fixed set of terminal symbols, with every other symbol a non-terminal one, our engine allows for more general usage, not just for music.</p>
+
+		<p>Terminal and non-terminal symbols must be separated by a space. This frees other characters up to be used potentially as symbols, for example the comma. Tildes represent empty strings, also chosen arbitrarily. Every possible variation of a rule must be written in separate rows. This allows for easy viewing of the language and avoids confusion.</p>
+
+		<p>To customise our program for the integration with the Polymetric Expression program, we have allowed commas and curly braces to be used in rules without spaces in between, while still treating them as terminal symbols. This maximises usability as it is more intuitive to type braces and commas without spaces surrounding them.</p>
+ 
+	<h2>Where We Would Like to Go</h2>
+
+	<h3>Grammar</h3>
+
+		<p>The program should eventually support context-sensitive grammar as well.</p>
+
+	<h3>Interface</h3>
+
+		<p>For the form input, a more user-friendly interface would be to increase the number of rows automatically when the existing rows have all been filled up.</p>
+
+	<h3>Syntax</h3>
+
+		<p>A possible direction would be to further customise our program for polymetric expressions, limiting the types of symbols to the range of possible musical outputs. This would allow us to further increase the usability of our program for users who hope to compose music with our program's help.</p>
+
+	<h3>Grammar Engine</h3>
+
+		<p>The current random-walk to generate a single output string is more likely to choose branches which terminate earlier, decreasing the possibility of reaching longer strings. A random-walk, by nature, also does not allow for weighted branches of the tree where a rule is more likely to be picked than another, which is more often the case in most situations, limiting the usefulness of this function.</p>
+
+		<p>To obtain a better sampling of output, the grammar engine should use a weighted tree-walk for its generation of a single instance, rather than the current algorithm used, which favours the generation of shorter strings.</p>
+</div>
+    
+	<div id="onward">
+        <a href="index.html">Take me back to the demo!</a>
+        <a href="https://github.com/rosemarietan/GenerativeGrammar">Take a look at the code</a>
+    </div>
+
+</body>
+</html>
