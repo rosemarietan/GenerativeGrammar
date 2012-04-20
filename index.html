@@ -1,6 +1,6 @@
 <html>
 <head>
-
+<title>Generative Grammar</title>
 <style type="text/css">
 
 body {
@@ -66,21 +66,44 @@ button {
 	-moz-border-radius: 2px;
 }
 
-#title-bar {
-	background: #ffffff;
-	padding: 10px 20px;
+#menu {
+	background: #333333;
+	color: #ffffff;
 }
+#menu-container {
+	width: 600px;
+	margin: 0px auto;
+	padding: 12px;
+}
+	#title a {
+		text-decoration: none;
+		text-align: left;
+		font-weight: bold;
+		font-size: 20px;
+		padding: 0px 100px 0px 0px;
+	}
 
-#description {
-	font-size: 12px;
-	font-style: italic;
-	width: 400px;
-	padding: 10px 0px;
-}
+	#nav-menu a {
+		color: #aaaaaa;
+		text-decoration: none;
+		text-align: center;
+		padding: 10px;
+		font-weight: bold;
+	}
+	
+		#nav-menu a:hover {
+			color: #ffffff;
+		}
+		
+	
+	#nav-menu a.current-page {
+		border-bottom: 8px solid #ededed;
+		color: #ffffff;
+	}
 
 #content {
 	width: 450px;
-	margin: 20px auto;
+	margin: 50px auto;
 }
 
 #input {
@@ -130,7 +153,7 @@ button {
 	color: #ffffff;
 	width: 250px;
 	padding: 10px;
-	margin-bottom: -330px;
+	margin-bottom: -120px;
 	position: relative;
 	top: -50px;
 	left: 25px;
@@ -178,7 +201,7 @@ button {
 	  
 </style>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-<script src="http://nishabdam.com:8080/cs1010r/doc/trunk/pe/sample-anager.js"></script>
+<script src="http://nishabdam.com:8080/cs1010r/doc/trunk/pe/sample-manager.js"></script>
 <script src="http://nishabdam.com:8080/cs1010r/doc/trunk/pe/expressionBuilder.js"></script>
 <script src="http://nishabdam.com:8080/cs1010r/doc/trunk/pe/peParser.js"></script>
 <script src="http://nishabdam.com:8080/cs1010r/doc/trunk/pe/soundObjectBuilder.js"></script>
@@ -342,11 +365,18 @@ button {
 
 <body>
 
-<div id="title-bar">
-    <h1>generative grammar</h1>
-    <p id="description">
-    A javascript project by Lee Zhi Xin and Rose Marie Tan, under the supervision of Associate Professor Martin Henz and Srikumar Karaikudi Subramaniam, <a href="http://nishabdam.com:8080/cs1010r/doc/trunk/pe/demo.html">in collaboration with Yang Zhixing and Yang Mansheng</a>
-    </p>
+<div id="menu">
+<div id="menu-container">
+	<span id="title">
+		<a href="index.html">generative grammar</a>
+    </span>
+    <span id="nav-menu">
+        <a class="current-page" href="index.html">DEMO</a>
+        <a href="about.html">ABOUT</a>
+        <a href="development.html">DEVELOPMENT</a>
+        <a href="help.html">HELP</a>
+	</div>
+</div>
 </div>
 
 <div id="content"> <!--start of id content-->
@@ -386,13 +416,8 @@ button {
 </svg>
 
 <div id="instructions">
-    Rules should be specified with a non terminal symbol, followed by -->, followed by everything else.<br/><br/>
-    Non-terminals should start with upper case letters.<br/><br/>
-    The LHS of the first rule should be S.<br/><br/>
-    Terminal and non-terminal symbols should be separated by a space.<br/><br/>
-    If your language is infinite, specify the number of results you want on the first line.<br/><br/> 
-    Empty strings are represented by tildes (~) <br/><br/>
-    Still unsure? Try <a href="#" id="ex1">this example</a>, or <a href="#" id="ex2">this one</a>.
+    Need help with the input format?<br/><br/>
+    Try <a href="#" id="ex1">this example</a>, or <a href="#" id="ex2">this one</a> to get an idea, or visit the <a href="help.html">help page</a>.
 </div>
 
 </div>
