@@ -4,6 +4,9 @@ METHODS
 generateResultsAndLink(str, isSingleInstance, idOfResultPlace, idOfMsgPlace): Generates results, creates links to the PE project, puts results in designated areas
 parsefromForm(formId, numberOfResId): Parses input from GUI 
 */
+	var facade = new playerFacade();
+	facade.loadSamples('https://github.com/fightangel/PolymetricExpression/tree/master/acoustic-kit', false);
+
 		  function generateResultsAndLink(str, isSingleInstance, idOfResultPlace, idOfMsgPlace) {
 				var allResults = generateLanguage(str, isSingleInstance);
 				if (allResults) {
@@ -18,7 +21,8 @@ parsefromForm(formId, numberOfResId): Parses input from GUI
 					var $link = $('<a href="#" class="test-link"></a>');
 					$link.html(line);
 					$link.click(function() {
-						player.play(line, controlParams, 1, stopCallback);
+						facade.play();
+						//player.play(line, controlParams, 1, stopCallback);
 					});
 					$(idOfResultPlace).append($link);
 					$(idOfResultPlace).append("<br />");
@@ -44,10 +48,7 @@ parsefromForm(formId, numberOfResId): Parses input from GUI
 					
 					return strInput;
 			}
-			
-			var audioContext = new webkitAudioContext();
-			var player = new pePlayer(audioContext);
-			
+			/*
 			$(function() {
 				SampleManager.init(16, {
 					didInitialize: loadSamples
@@ -68,4 +69,4 @@ parsefromForm(formId, numberOfResId): Parses input from GUI
 			}
 			
 			var controlParams = {gain: 0.25, ADSRParams: {a: 0.1, d: 0.1, r: 0.2, maxAmp: 1.5, sustainAmp: 1}};
-			//player.play(exp, controlParams, 1);
+			//player.play(exp, controlParams, 1);*/
